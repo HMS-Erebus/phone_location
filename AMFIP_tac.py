@@ -1,6 +1,7 @@
 import requests
+import Phone_get_loc
 
-suffix="466400000000001"
+#
 
 def Amfip_get(nrf_ip):
     nf_types = 'AMF'
@@ -27,7 +28,8 @@ def Amfip_get(nrf_ip):
                 #print(nf_instances2)
 
 def tac_get(nrf_ip):
-
+    phonenumber=input("请输入手机号")
+    suffix=Phone_get_loc.imsi_get(phonenumber)
     amfip = Amfip_get(nrf_ip)
     url = f"http://{amfip}:7777/namf-comm/v1/ue-contexts/imsi-{suffix}/tac_list"
 
@@ -39,4 +41,7 @@ def tac_get(nrf_ip):
         return
     tac1 = response.json()
     print("TAC:",tac1)
+
+if __name__ == "__main__":
+    tac_get(input("请输入nef_ip"))
 
